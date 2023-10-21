@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.banner-btn {
+  @apply  absolute  bottom-5 right-10 ;
+}
