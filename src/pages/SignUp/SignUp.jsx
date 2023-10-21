@@ -1,22 +1,38 @@
 import { Link } from "react-router-dom";
 import login from "../../assets/images/login/login.svg"
-const Login = () => {
+const SignUp = () => {
     const handleLogin=(e)=>{
         e.preventDefault()
         const form=e.target
+
+        const name=form.name.value
         const email=form.email.value
         const password=form.password.value
-        console.log(email,password);
+        console.log(name,email,password);
     }
-  return (
-    <div className="hero min-h-screen bg-base-200">
+    return (
+        <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row gap-10 ">
         <div className="text-center lg:text-left w-1/2">
           <img src={login} />
         </div>
         <div className="card flex-shrink-0 max-w-sm shadow-2xl bg-base-100 w-1/2">
           <form className="card-body" onSubmit={handleLogin} >
-          <h2 className="text-center font-bold text-3xl">Login</h2>
+          <h2 className="text-center font-bold text-3xl">Sign Up</h2>
+
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="name"
+                className="input input-bordered"
+                name="name"
+                required
+              />
+            </div>    
+            
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -47,14 +63,14 @@ const Login = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <input type="submit" value="Login" className="btn btn-error"/>
+              <input type="submit" value="Sign Up" className="btn btn-error"/>
             </div>
-            <p className="font-semibold">New here? <Link to="/signUp" className="font-bold text-red-500 underline" >Sign Up</Link></p>
+            <p className="font-semibold">Already have an accout? <Link to="/login" className="font-bold text-red-500 underline" >Login</Link></p>
           </form>
         </div>
       </div>
     </div>
-  );
+    );
 };
 
-export default Login;
+export default SignUp;
