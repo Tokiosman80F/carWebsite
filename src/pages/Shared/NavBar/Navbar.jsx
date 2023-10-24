@@ -1,13 +1,34 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const Navbar = () => {
-    const navLink=<>
-        <li><Link to="/">Home</Link></li>
-        <li><Link>About</Link></li>
-        <li><Link>Service</Link></li>
-        <li><Link>Blog</Link></li>
-        <li><Link>Contact</Link></li>
+  const { user, logoutUser } = useContext(AuthContext);
+  const handleLogout = () => {
+    logoutUser()
+      .then(() => alert("logout successfully"))
+      .catch((error) => console.log(error));
+  };
+  const navLink = (
+    <>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link>About</Link>
+      </li>
+      <li>
+        <Link>Service</Link>
+      </li>
+      <li>
+        <Link>Blog</Link>
+      </li>
+      <li>
+        <Link>Contact</Link>
+      </li>
+      {user?<li><Link to="/bookingItems">Booking Item</Link></li>:<></>}
     </>
+  );
   return (
     <div className="navbar bg-base-100 my-5">
       <div className="navbar-start">
@@ -38,12 +59,17 @@ const Navbar = () => {
         <a className="btn btn-ghost normal-case text-xl">CarWo</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-         {navLink}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{navLink}</ul>
       </div>
       <div className="navbar-end">
-      <button className="btn btn-outline btn-error">Appointment</button>
+        {user ? (
+          <button className="btn btn-primary" onClick={handleLogout}>
+            logout
+          </button>
+        ) : (
+          <Link to="/login"><button className="btn btn-secondary" >login</button></Link>
+        )}
+        <button className="btn btn-outline btn-error">Appointment</button>
       </div>
     </div>
   );
