@@ -1,18 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import login from "../../assets/images/login/login.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 const Login = () => {
   const { loginUser } = useContext(AuthContext);
+  let location = useLocation();
+  let navigate = useNavigate();
+  let from = location.state?.from?.pathname || "/";
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
-    loginUser(email,password)
-      .then((user) => console.log(user.user))
-      .catch((error) => console.log(error.message));
+    loginUser(email, password)
+      .then((user) => {
+        console.log(user.user);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -56,7 +64,7 @@ const Login = () => {
               <input type="submit" value="Login" className="btn btn-error" />
             </div>
             <p className="font-semibold">
-              New here?{" "}
+              New here?
               <Link to="/signUp" className="font-bold text-red-500 underline">
                 Sign Up
               </Link>
